@@ -3,6 +3,7 @@
     public class BusRoute
     {
         public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
         public string StartName { get; set; } = string.Empty;
         public string EndName { get; set; } = string.Empty;
         public string CreatedAt { get; set; } = string.Empty;

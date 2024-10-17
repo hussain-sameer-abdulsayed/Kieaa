@@ -2,6 +2,7 @@
 using Kieaa.Dtos.BusRouteDto;
 using Kieaa.IRepos;
 using Kieaa.Models;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kieaa.Repos
@@ -28,7 +29,17 @@ namespace Kieaa.Repos
 
         public async Task<BusRoute> GetBusRotueByIdAsync(int id)
         {
-            var busRoute = await _context.BusRoutes.Where(r=>r.Id == id).Include(r=>r.RouteCoordinates).FirstOrDefaultAsync();
+            var busRoute = await _context.BusRoutes
+                            .Where(r=>r.Id == id)
+                            .Include(r=>r.RouteCoordinates)
+                            .FirstOrDefaultAsync();
+
+            // Ensure the coordinates are sorted by their order
+            busRoute.RouteCoordinates = busRoute.RouteCoordinates
+                .OrderBy(rc => rc.Order)
+                .ToList();
+
+
             return busRoute;
         }
 
@@ -48,6 +59,7 @@ namespace Kieaa.Repos
                 {
                     UserId = userId,
                     CreatedBy = user,
+                    Title = routeDto.Title,
                     StartName = routeDto.StartName,
                     EndName = routeDto.EndName,
                     CreatedAt = DateTime.UtcNow.ToShortTimeString(),
@@ -62,10 +74,11 @@ namespace Kieaa.Repos
 
                 // Now, set BusRouteId for each RouteCoordinate and add them to the context
                 busRoute.RouteCoordinates = routeDto.Coordinates
-                    .Select(c => new RouteCoordinate
+                    .Select((c, index) => new RouteCoordinate
                     {
                         Latitude = c.Lat,
                         Longitude = c.Lng,
+                        Order = index + 1, // Set the order based on index
                         BusRouteId = busRoute.Id,  // Set the BusRouteId here
                         BusRoute = busRoute
                     }).ToList();
@@ -97,7 +110,12 @@ namespace Kieaa.Repos
                 // Attach the bus route if it's being tracked
                 _context.BusRoutes.Attach(busRoute);
 
+
                 // Update fields
+                if (!string.IsNullOrEmpty(routeDto.Title))
+                {
+                    busRoute.Title = routeDto.Title;
+                }
                 if (!string.IsNullOrEmpty(routeDto.StartName))
                 {
                     busRoute.StartName = routeDto.StartName;
@@ -122,10 +140,11 @@ namespace Kieaa.Repos
 
                     // Add new coordinates from DTO
                     busRoute.RouteCoordinates = routeDto.RouteCoordinates
-                        .Select(c => new RouteCoordinate
+                        .Select((c,index) => new RouteCoordinate
                         {
                             Latitude = c.Lat,
                             Longitude = c.Lng,
+                            Order = index + 1, // Set the order based on index
                             BusRouteId = busRoute.Id
                         }).ToList();
                 }
@@ -190,9 +209,9 @@ namespace Kieaa.Repos
         }
 
 
-        public async Task<List<BusRoute>> GetBusRotueByNameAsync(string name)
+        public async Task<List<BusRoute>> GetBusRotueByNameAsync(string startname, string endname)
         {
-            var busRoutes = await _context.BusRoutes.Where(r => r.StartName == name || r.EndName == name)
+            var busRoutes = await _context.BusRoutes.Where(r => r.StartName == startname && r.EndName == endname)
                                                     .Include(r => r.RouteCoordinates).ToListAsync();
             
             

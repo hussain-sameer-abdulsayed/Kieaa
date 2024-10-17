@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Kieaa.Migrations
 {
     /// <inheritdoc />
-    public partial class CraeteDb : Migration
+    public partial class CreateDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -103,6 +103,7 @@ namespace Kieaa.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EndName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -214,6 +215,7 @@ namespace Kieaa.Migrations
                     BusRouteId = table.Column<int>(type: "int", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdatedAt = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -241,7 +243,7 @@ namespace Kieaa.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreeshToken", "RefreshTokenExpiryTime", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "ValidationEmailToken" },
-                values: new object[] { "0842a1a0-44d2-4882-8266-12e5a939d452", 0, "92bf9ecd-021a-4a68-8a4d-f55fc22c0c40", "10/13/2024", "User", "hussainsameer1718@gmail.com", true, false, null, "HUSSAINSAMEER1718@GMAIL.COM", "HUSSAINSAMEER1718", "ADHsbwR5wkpV1zT+Eyf7yAX3gRa5+ixQgvzTtZlkQ2fYIJVfIi/SkkvQXsdZKp1g2g==", "07849678401", true, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ddb94f5e-9080-422f-993c-42afc54d1547", false, "10/13/2024", "HussainSameer1718", "5c4ced1e-615b-42bd-91d2-d0df5d052180" });
+                values: new object[] { "0842a1a0-44d2-4882-8266-12e5a939d452", 0, "5763f246-6afe-4758-b7a3-3b33f5aa4b8e", "10/17/2024", "User", "hussainsameer1718@gmail.com", true, false, null, "HUSSAINSAMEER1718@GMAIL.COM", "HUSSAINSAMEER1718", "AAF7wtq8QsdSNj+W7BS98lC/NrgQ7hXX44/7BacIh53cvVV5jou5H34hW+PnLkdh8A==", "07849678401", true, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "7bdaf44e-7b1e-4235-ab62-5c1a258485aa", false, "10/17/2024", "HussainSameer1718", "21bc0d31-e125-4d89-822c-29fa1a279265" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",

@@ -46,6 +46,10 @@ namespace Kieaa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UpdatedAt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -78,6 +82,9 @@ namespace Kieaa.Migrations
 
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedAt")
                         .IsRequired()
@@ -388,22 +395,22 @@ namespace Kieaa.Migrations
                         {
                             Id = "0842a1a0-44d2-4882-8266-12e5a939d452",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "92bf9ecd-021a-4a68-8a4d-f55fc22c0c40",
+                            ConcurrencyStamp = "5763f246-6afe-4758-b7a3-3b33f5aa4b8e",
                             Email = "hussainsameer1718@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "HUSSAINSAMEER1718@GMAIL.COM",
                             NormalizedUserName = "HUSSAINSAMEER1718",
-                            PasswordHash = "ADHsbwR5wkpV1zT+Eyf7yAX3gRa5+ixQgvzTtZlkQ2fYIJVfIi/SkkvQXsdZKp1g2g==",
+                            PasswordHash = "AAF7wtq8QsdSNj+W7BS98lC/NrgQ7hXX44/7BacIh53cvVV5jou5H34hW+PnLkdh8A==",
                             PhoneNumber = "07849678401",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "ddb94f5e-9080-422f-993c-42afc54d1547",
+                            SecurityStamp = "7bdaf44e-7b1e-4235-ab62-5c1a258485aa",
                             TwoFactorEnabled = false,
                             UserName = "HussainSameer1718",
-                            CreatedAt = "10/13/2024",
+                            CreatedAt = "10/17/2024",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedAt = "10/13/2024",
-                            ValidationEmailToken = "5c4ced1e-615b-42bd-91d2-d0df5d052180"
+                            UpdatedAt = "10/17/2024",
+                            ValidationEmailToken = "21bc0d31-e125-4d89-822c-29fa1a279265"
                         });
                 });
 

@@ -4,6 +4,7 @@ namespace Kieaa.Dtos.BusRouteDto
 {
     public class UpdateBusRouteDto
     {
+        public string? Title { get; set; } = string.Empty;
         public string? StartName { get; set; } = string.Empty;
         public string? EndName { get; set; } = string.Empty;
 

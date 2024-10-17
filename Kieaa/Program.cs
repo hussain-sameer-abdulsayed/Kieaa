@@ -63,7 +63,17 @@ builder.Services.AddRateLimiter(options =>
         opt.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
     }).RejectionStatusCode = 429;
 });
-
+// frontend seetup
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("reactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -104,6 +114,10 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -111,8 +125,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseStaticFiles(); // Ensure static files are served (the problem i encounterd for image loading)
+
 app.UseHttpsRedirection();
+
+app.UseCors("reactApp"); // frontend seetup
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

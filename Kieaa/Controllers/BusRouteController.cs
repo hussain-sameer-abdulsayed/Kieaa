@@ -55,12 +55,12 @@ namespace Kieaa.Controllers
         }
 
 
-        [HttpGet("startname/{name}")]
-        public async Task<IActionResult> GetBusRoutesByStartName(string name)
+        [HttpGet("search/startname/{startname}")]
+        public async Task<IActionResult> GetBusRoutesByStartName(string startname)
         {
             try
             {
-                var busRoutes = await _busRouteRepo.GetBusRotueByStartNameAsync(name);
+                var busRoutes = await _busRouteRepo.GetBusRotueByStartNameAsync(startname);
                 if(busRoutes.Count()==0)
                 {
                     return NotFound("There is no bus routes with this name");
@@ -74,12 +74,12 @@ namespace Kieaa.Controllers
         }
 
 
-        [HttpGet("endname/{name}")]
-        public async Task<IActionResult> GetBusRoutesByEndName(string name)
+        [HttpGet("search/endname/{endname}")]
+        public async Task<IActionResult> GetBusRoutesByEndName(string endname)
         {
             try
             {
-                var busRoutes = await _busRouteRepo.GetBusRotueByEndNameAsync(name);
+                var busRoutes = await _busRouteRepo.GetBusRotueByEndNameAsync(endname);
                 if (busRoutes.Count() == 0)
                 {
                     return NotFound("There is no bus routes with this name");
@@ -93,12 +93,12 @@ namespace Kieaa.Controllers
         }
 
 
-        [HttpGet("bothname/{name}")]
-        public async Task<IActionResult> GetBusRoutesByName(string name)
+        [HttpGet("search/startname-endname/{startname}/{endname}")]
+        public async Task<IActionResult> GetBusRoutesByName(string startname, string endname)
         {
             try
             {
-                var busRoutes = await _busRouteRepo.GetBusRotueByNameAsync(name);
+                var busRoutes = await _busRouteRepo.GetBusRotueByNameAsync(startname, endname);
                 if (busRoutes.Count() == 0)
                 {
                     return NotFound("There is no bus routes with this name");
